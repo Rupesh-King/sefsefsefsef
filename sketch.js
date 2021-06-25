@@ -107,3 +107,35 @@ function spawnObstacle(){
     obstacleGroup.add(obstacle);
   }
 }
+ if (monkey.isTouching(obstacleGroup)){
+      gameState = END;
+    }
+  if (gameState === END){
+    ground.velocityX = 0;
+    
+    monkey.y = 235;
+    monkey.scale = 0.12;
+    monkey.changeAnimation("collide", monkeyCollide);
+    
+    obstacleGroup.setVelocityXEach(0);
+    bananaGroup.setVelocityXEach(0);
+    obstacleGroup.setLifetimeEach(-1);
+    bananaGroup.setLifetimeEach(-1);
+    fill("red")
+    stroke("black")
+    textSize(30);
+    text("GAMEOVER!!!", 220, 170);
+    fill("black");
+    textSize(15);
+    text("Press 'R' to play again", 240, 200);
+    
+    if (keyDown("r")){
+      bananaGroup.destroyEach();
+      obstacleGroup.destroyEach();
+      monkey.changeAnimation("monkey", monkey_running);
+      score = 0;
+      bananaScore = 0;
+      gameState = PLAY; 
+    }
+  }
+  
